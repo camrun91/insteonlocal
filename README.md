@@ -3,6 +3,49 @@
 Python library for controlling Insteon Hub locally. This allows you to send direct commands to your Insteon Hub without having to go through the cloud, or obtain a developer API key 
 (which can be hard or impossible to get from Insteon)
 
+*If anyone would like to take over this project, please let me know via github issue. I'm mostly using ZWave/Hue and Homeseer now so I have limited hardware and time to test/work on this.*
+
+## Troubleshooting/Reporting
+
+1. Download the insteon local package from https://github.com/phareous/insteonlocal
+2. Copy config.py.example to config.py and update the host/user/pass to your own hub's information
+3. Edit example.py to call the commands you want to test such as:
+hub.get_linked()
+sys.exit(1)
+4. Open an issue at https://github.com/phareous/insteonlocal
+Include the log file, the list of device models and ID's, and your hub model
+
+## Changes
+
+0.53 2017-06-08 Fix typo in error logging
+
+0.52 2017-06-01 Set path for cache files in constructor
+
+0.51 2017-04-08 Use system temp dir
+
+0.50 2017-04-06 Fix cache error parsing [@wardcraigj]
+
+0.49 2017-03-16 Adds support for i2c2 checksums on extended msg, adds 
+support for controlling on/off outlets (2663-222) [@phareous]
+
+0.48 2017-03-09 Fixes with caching and device ids [@phareous]
+
+0.47 2017-03-01 Caching and logging changes [@wardcraigj]
+
+0.46 2017-02-28 More file caching changes [@wardcraigj]
+
+0.45 2017-02-28 Switching caching to be file-based [@wardcraigj]
+
+0.44 Bug fix for caching [@wardcraigj]
+
+0.43 Better caching [@wardcraigj]
+
+0.41 Add support for FanLinc, better status support [@jawilson]
+
+0.40 Added caching to get device status [@wardcraigj]
+
+0.39 Initial stable release for use in Home Assistant
+
 ## Hubs
 
 This was developed and tested against the Insteon Hub 2245-222.
@@ -11,12 +54,17 @@ It may work for the Insteon Hub 2242-222, SmartLinc 2414N, or other hub with a H
 
 ## Devices
 
-This version of the library should work with Insteon dimmers and switches. It was developed against 
-2466SW ToggleLinc Relay (Swutch) and 2477D SwitchLinc Dual-Band Dimmer
+This version of the library should work with Insteon dimmers and switches, and FanLinc controls. It was developed against 
+2466SW ToggleLinc Relay (Switch) and 2477D SwitchLinc Dual-Band Dimmer
 
 ## Unsupported Devices
 
-At this time, only switches and dimmers are supported. 
+At this time, these devices are supported:
+
+-Switches
+-Dimmers
+-Receptacles
+-FanLinc
 
 To add support for future devices, we will need donations of equipment, or for device owners to directly 
 contribute code.
@@ -32,7 +80,6 @@ Unsupported devices include (but aren't limited to):
 * Door Sensor
 * Motion Sensor
 * Sprinkler Interfaces
-* Fan Controls
 * Smoke Bridge
 * I/O Module
 * Micro Dimmer
@@ -50,6 +97,7 @@ The library can currently do the following actions:
   * On
   * Off
   * Beep
+
 * Dimmers:
   * On (specified level)
   * On (fast: saved level)
@@ -61,6 +109,7 @@ The library can currently do the following actions:
   * Start changing (up or down)
   * Stop changing (up or down)
   * Beep 
+
 * Groups:
   * On
   * Off
